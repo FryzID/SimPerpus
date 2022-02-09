@@ -133,9 +133,9 @@ class SiteController extends Controller
 
     public function actionDepdrop()
     {
-        $model = new \app\models\Peminjaman();
+        $model = new \app\models\Buku();
         if ($model->load(Yii::$app->request->post())) {
-            $model->department_created_date = date('Y-m-d h:m:s');
+            $model->peminjaman_created_date = date('Y-m-d h:m:s');
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
