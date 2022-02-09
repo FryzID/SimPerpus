@@ -40,7 +40,7 @@ use yii\helpers\Url;
             'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
             'pluginOptions'=>[
                 'depends'=>['peminjaman-id_buku'],
-                'url'=>Url::to(['/buku/']),
+                'url'=>Url::toRoute(['site/buku']),
                 'placeholder'=>Yii::t('app','Select buku'),
             ]
         ]);

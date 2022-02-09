@@ -151,34 +151,6 @@ class BukuController extends Controller
 
         return $this->redirect(['index']);
     }
-////////////////////////////////////////////////////////////////////////
-
-    public function actionLists($id){
-
-        //echo "<pre>";print_r($id);die;
-        $countPosts = \app\models\Buku::find()
-        ->where(['id_rak' => $id])
-        ->count();
-
-        $posts = \app\models\Buku::find()
-        ->where(['id_rak' => $id])
-        ->orderBy('id DESC')
-        ->all();
-        
-
-        if($countPosts>0){
-        foreach($posts as $post){
-
-        echo "<option value='".$post->id."'>".$post->buku."</option>";
-        }
-        }
-        else{
-        echo "<option>-</option>";
-        }
-        var_dump($id);die;
-    }
-    
-///////////////////////////////////////////////////////////////////////////
 
     /**
      * Finds the Buku model based on its primary key value.

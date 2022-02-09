@@ -154,7 +154,7 @@ class SiteController extends Controller
                     $cat_id = $parents[0];
                     $out = \app\models\Buku::find()
                            ->where(['id_rak'=>$cat_id])
-                           ->select(['id_buku','nama_buku AS name'])->asArray()->all();
+                           ->select(['id','nama_buku AS name'])->asArray()->all();
                            echo Json::encode(['output'=>$out, 'selected'=>'']);
                            return;
                 }

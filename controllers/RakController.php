@@ -101,28 +101,6 @@ class RakController extends Controller
         ]);
     }
 
-///////////////////////////////////////////////////////////////////////////////
-
-    // public function actionLists($id){
-    //     $countRak = Rak::find()
-    //         ->where(['id_rak'=>$id])
-    //         ->count();
-    //     $raks = Rak::find()
-    //         ->where(['id_rak'=>$id])
-    //         ->all();
-    //     if($countRak > 0)
-    //     {
-    //         foreach ($raks as $rak) {
-    //             echo "<option value'" .$rak->id. "'>".$rak->nama_rak."</option>";
-    //         }
-    //     }
-    //     else
-    //     {
-    //         echo "<option>-</option>";
-    //     }
-    // }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Deletes an existing Rak model.
