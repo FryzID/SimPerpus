@@ -27,7 +27,7 @@ use yii\helpers\Url;
         $form->field($model, 'id_rak')->widget(Select2::classname(),
         [
             'data' => $Rak,
-            'options'=>['placeholder'=>Yii::t('app','Select Company')],
+            'options'=>['placeholder'=>Yii::t('app','Select Rak')],
             'pluginOptions' => [
                 'allowClear' => true,
             ],
@@ -39,11 +39,12 @@ use yii\helpers\Url;
             'options'=>['id'=>'peminjaman-id_buku'],
             'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
             'pluginOptions'=>[
-                'depends'=>['peminjaman-id_buku'],
+                'depends'=>['peminjaman-id_rak'],
                 'url'=>Url::toRoute(['site/buku']),
                 'placeholder'=>Yii::t('app','Select buku'),
             ]
         ]);
+        // var_dump($model, 'id_buku');die;
     ?>
 
     <?= $form->field($model, 'id_admin')->dropDownList(

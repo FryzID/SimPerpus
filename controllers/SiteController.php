@@ -145,7 +145,7 @@ class SiteController extends Controller
         }
     }
 
-    public function actionBranches() {
+    public function actionBuku() {
         $out = [];
         
         if (isset($_POST['depdrop_parents'])) {
@@ -154,7 +154,7 @@ class SiteController extends Controller
                     $cat_id = $parents[0];
                     $out = \app\models\Buku::find()
                            ->where(['id_rak'=>$cat_id])
-                           ->select(['id','nama_buku AS name'])->asArray()->all();
+                           ->select(['id','judul AS name'])->asArray()->all();
                            echo Json::encode(['output'=>$out, 'selected'=>'']);
                            return;
                 }
