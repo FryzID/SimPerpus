@@ -24,7 +24,8 @@
         "et-soft/yii2-widget-select-year": "*",
         "kartik-v/yii2-editable": "dev-master",
         "kartik-v/yii2-widget-depdrop": "dev-master",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev",
+        "kartik-v/yii2-widget-fileinput": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

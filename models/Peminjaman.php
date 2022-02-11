@@ -50,8 +50,9 @@ class Peminjaman extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_buku' => 'Id Buku',
-            'id_admin' => 'Id Admin',
+            'id_rak' => 'Rak',
+            'id_buku' => 'ID Buku',
+            'id_admin' => 'ID Admin',
             'tanggal_peminjaman' => 'Tanggal Peminjaman',
         ];
     }

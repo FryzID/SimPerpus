@@ -28,7 +28,7 @@ DashboardAsset::register($this);
 
 <header>
    <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-gray navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -95,12 +95,12 @@ DashboardAsset::register($this);
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
+      <!-- Sidebar user panel (optional)
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
           <a href="#" class="d-block">Alexander Pierce</a>
         </div>
-      </div>
+      </div> -->
 
 
       <nav class="mt-2">
@@ -111,7 +111,7 @@ DashboardAsset::register($this);
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item menu-open">
-               <?= Html::a('<i class="far dashcube nav-icon"></i> <p> Dashboard </p>', ['site/index'], ['class' => 'nav-link active'], ['class' => 'far fa-circle nav-icon']) ?>
+                <?= Html::a('<i class="far dashcube nav-icon"></i> <p> Dashboard </p>', ['site/index'], ['class' => 'nav-link active'], ['class' => 'far fa-circle nav-icon']) ?>
               </li>
 
 
@@ -126,11 +126,11 @@ DashboardAsset::register($this);
 
             <ul class="nav nav-treeview">
               <li class="nav-item">
-              <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> Tambah Rak </p>', ['/rak/index'], ['class' => 'nav-link'], ['class' => 'far fa-circle nav-icon']) ?>
+                <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> Tambah Rak </p>', ['/rak/index'], ['class' => 'nav-link'], ['class' => 'far fa-circle nav-icon']) ?>
               </li>
 
               <li class="nav-item">
-              <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> Tambah Buku </p>', ['/buku/index'], ['class' => 'nav-link']) ?>
+                <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> Tambah Buku </p>', ['/buku/index'], ['class' => 'nav-link']) ?>
               </li>
 
               <li class="nav-item">
@@ -140,25 +140,24 @@ DashboardAsset::register($this);
           </li>
 
               <!-- Menu User RBAC -->
-              <li class="nav-item">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                User Adn RBAC
+                User Dan RBAC
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> User Menu </p>', ['/user/admin'], ['class' => 'nav-link'], ['class' => 'far fa-circle nav-icon']) ?>
-              </li>
+                  <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> User Menu </p>', ['/user/admin'], ['class' => 'nav-link'], ['class' => 'far fa-circle nav-icon']) ?>
+                </li>
 
                 <li class="nav-item">
-                <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> RBAC Menu </p>', ['/admin'], ['class' => 'nav-link'], ['class' => 'far fa-circle nav-icon']) ?>
-              </li>
-
-            </ul>
-          </li>
+                  <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> RBAC Menu </p>', ['/admin'], ['class' => 'nav-link'], ['class' => 'far fa-circle nav-icon']) ?>
+                </li>
+              </ul>
+            </li>
           
 
 </header>

@@ -6,6 +6,9 @@ use yii\bootstrap\Modal;
 use yii\helpers\arrayHelper;
 use app\models\rak;
 use kartik\daterange\DateRangePicker;
+use kartik\file\FileInput as FileFileInput;
+use kartik\widgets\FileInput;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Buku */
@@ -46,8 +49,8 @@ use kartik\daterange\DateRangePicker;
 
     </div>
 
-    <div class="col-md-2">
-            <?= $form->field($model, 'gambar_buku')->fileInput(); ?>
+    <div class="col-md-12">
+            <?= $form->field($model, 'gambar_buku')->widget(FileFileInput::classname()); ?>
     </div>
 
     <div class="form-group">
