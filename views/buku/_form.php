@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Penerbit;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
@@ -40,7 +41,10 @@ use kartik\widgets\FileInput;
     
     <div class="row">
         <div class="col-md-6">
-        <?= $form->field($model, 'penerbit')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'id_penerbit')->dropDownList(
+            arrayHelper::map(Penerbit::find()->all(),'id','nama_penerbit'),
+            ['prompt'=>'Select Penerbit']
+        ) ?>
         </div>
 
         <div class="col-md-6">

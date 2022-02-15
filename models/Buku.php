@@ -37,11 +37,11 @@ class Buku extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['judul', 'pengarang', 'penerbit', 'tahun_terbit', 'id_rak'], 'required'],
+            [['judul', 'pengarang', 'id_penerbit', 'tahun_terbit', 'id_rak'], 'required'],
             [['tahun_terbit'], 'safe'],
             [['id_rak'], 'integer'],
             [['gambar_buku'], 'file','skipOnEmpty' => true, 'extensions'=>'jpg, gif, png ,doc, txt, pdf ,docx ,rar ,zip ,xls ,xlsx ,rtf',],
-            [['judul', 'pengarang', 'penerbit'], 'string', 'max' => 45],
+            [['judul', 'pengarang', 'id_penerbit'], 'string', 'max' => 45],
             [['id_rak'], 'exist', 'skipOnError' => true, 'targetClass' => Rak::className(), 'targetAttribute' => ['id_rak' => 'id']],
         ];
     }
@@ -55,7 +55,7 @@ class Buku extends \yii\db\ActiveRecord
             'id' => 'ID',
             'judul' => 'Judul',
             'pengarang' => 'Pengarang',
-            'penerbit' => 'Penerbit',
+            'id_penerbit' => 'Penerbit',
             'tahun_terbit' => 'Tahun Terbit',
             'id_rak' => 'Id Rak',
             'gambar_buku' => 'Gambar Buku',
@@ -80,5 +80,10 @@ class Buku extends \yii\db\ActiveRecord
     public function getRak()
     {
         return $this->hasOne(Rak::className(), ['id' => 'id_rak']);
+    }
+
+    public function getPenerbit()
+    {
+        return $this->hasOne(Penerbit::className(), ['id' => 'id_penerbit']);
     }
 }

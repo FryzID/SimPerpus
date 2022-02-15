@@ -2,6 +2,11 @@
 
 /* @var $this yii\web\View */
 
+use app\models\Buku;
+use app\models\Peminjaman;
+use app\models\Rak;
+use yii\bootstrap4\Html;
+
 $this->title = 'Perpustakaanku';
 ?>
 <div class="card card-outline card-primary">
@@ -9,11 +14,66 @@ $this->title = 'Perpustakaanku';
 
     <div class="jumbotron text-center bg-transparent">
         <h1 class="display-4">Perpustakaanku</h1>
+        <div class="row">
+        <div class="col-md-4">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <p>Jumlah Peminjaman</p>
+                    <?php 
+                    $jumlah_peminjaman = Peminjaman::find()
+                    ->indexBy('id')
+                    ->count();
+                    ?>
+                    <h3><?php echo "$jumlah_peminjaman"?></h3>
+                </div>
+            <div class="icon">
+            <i class="ion ion-bag"></i>
+            </div>
+            <!-- <li class="small-box-footer">
+                <?= Html::a('<p> More Info </p> <i class="fas fa-arrow-circle-right"> </i>', ['/peminjaman/index'], ['class' => 'small-box-footer']) ?>
+            </li> -->
+                <!-- <a href="./web/peminjaman/index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+        </div>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <div class="col-md-4">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <p>Jumlah Buku</p>
+                    <?php 
+                    $jumlah_buku = Buku::find()
+                    ->indexBy('id')
+                    ->count();
+                    ?>
+                    <h3><?php echo "$jumlah_buku"?></h3>
+                </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+                <!-- <a href="./buku/index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+        </div>
 
-        <p><a class="btn btn-lg btn-success" href="site/index">Get started with Yii</a></p>
+        <div class="col-md-4">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <p>Jumlah Rak</p>
+                    <?php 
+                    $jumlah_rak = Rak::find()
+                    ->indexBy('id')
+                    ->count();
+                    ?>
+                    <h3><?php echo "$jumlah_rak"?></h3>
+                </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+                <!-- <a href="./rak/index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+        </div>
     </div>
+    </div>
+
 
     <div class="card-body" style="display: block;">
 

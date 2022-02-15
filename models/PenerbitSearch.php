@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Buku;
+use app\models\Penerbit;
 
 /**
- * BukuSearch represents the model behind the search form of `app\models\Buku`.
+ * PenerbitSearch represents the model behind the search form of `app\models\Penerbit`.
  */
-class BukuSearch extends Buku
+class PenerbitSearch extends Penerbit
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class BukuSearch extends Buku
     public function rules()
     {
         return [
-            [['id', 'id_rak'], 'integer'],
-            [['judul', 'pengarang', 'id_penerbit', 'tahun_terbit'], 'safe'],
+            [['id'], 'integer'],
+            [['kode_penerbit', 'nama_penerbit'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class BukuSearch extends Buku
      */
     public function search($params)
     {
-        $query = Buku::find();
+        $query = Penerbit::find();
 
         // add conditions that should always apply here
 
@@ -59,13 +59,10 @@ class BukuSearch extends Buku
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tahun_terbit' => $this->tahun_terbit,
-            'id_rak' => $this->id_rak,
         ]);
 
-        $query->andFilterWhere(['like', 'judul', $this->judul])
-            ->andFilterWhere(['like', 'pengarang', $this->pengarang])
-            ->andFilterWhere(['like', 'id_penerbit', $this->id_penerbit]);
+        $query->andFilterWhere(['like', 'kode_penerbit', $this->kode_penerbit])
+            ->andFilterWhere(['like', 'nama_penerbit', $this->nama_penerbit]);
 
         return $dataProvider;
     }

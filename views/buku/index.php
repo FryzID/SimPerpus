@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id',
                 'judul',
                 'pengarang',
-                'penerbit',
+                'id_penerbit',
                 'tahun_terbit',
                 'rak.nama_rak',
                 //'id_rak',

@@ -32,7 +32,7 @@ DashboardAsset::register($this);
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
 
@@ -66,7 +66,7 @@ DashboardAsset::register($this);
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
       <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+        <a class="nav-link" data-widget="navbar-search" role="button">
           <i class="fas fa-search"></i>
         </a>
         <div class="navbar-search-block">
@@ -116,7 +116,7 @@ DashboardAsset::register($this);
 
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
                 Menu
@@ -136,12 +136,16 @@ DashboardAsset::register($this);
               <li class="nav-item">
                  <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> Tambah Peminjaman </p>', ['/peminjaman/index'], ['class' => 'nav-link'], ['class' => 'far fa-circle nav-icon']) ?>
               </li>
+
+              <li class="nav-item">
+                <?= Html::a('<i class="far fa-circle nav-icon"></i> <p> Tambah Penerbit </p>', ['/penerbit/index'], ['class' => 'nav-link'], ['class' => 'far fa-circle nav-icon']) ?>
+              </li>
             </ul>
           </li>
 
               <!-- Menu User RBAC -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 User Dan RBAC

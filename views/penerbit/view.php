@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Buku */
+/* @var $model app\models\Penerbit */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Buku', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Penerbit', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="buku-view">
+<div class="penerbit-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,17 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'judul',
-            'pengarang',
-            'id_penerbit',
-            'tahun_terbit',
-            'id_rak',
-
-            [
-                'label'=>'Foto',
-                'format'=>'raw',
-                'value'=>Html::img(Yii::$app->request->baseUrl.'/uploads/'.$model->gambar_buku,['width'=>'100px']),
-          ],
+            'kode_penerbit',
+            'nama_penerbit',
         ],
     ]) ?>
 
