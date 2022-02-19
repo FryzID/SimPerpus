@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 
@@ -19,6 +20,24 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 <?= Html::a('Create Peminjaman', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
+
+            <?php
+            $gridColumns = [
+                'id',
+                'id_rak',
+                'rak.nama_rak',
+                'id_buku',
+                'id_admin',
+                'tanggal_peminjaman',
+            ];
+
+            //Render Export Dropdown
+            echo ExportMenu::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => $gridColumns
+            ]);
+            ?>
+
         </div>
 
              <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

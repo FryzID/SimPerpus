@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use kartik\grid\GridView;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BukuSearch */
@@ -21,7 +22,27 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>
             <?= Html::a('Create Buku', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
-        </div>
+
+        <?php
+            $gridColumns = [
+                'id',
+                'judul',
+                'pengarang',
+                'id_penerbit',
+                'tahun_terbit',
+                'rak.nama_rak',
+            ];
+
+            //Render Export Dropdown
+            echo ExportMenu::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => $gridColumns
+            ]);
+        ?>
+
+    </div>
+
+    
 
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -54,6 +75,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],
+
+            
         ]); ?>
         </div>
     </div>

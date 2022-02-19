@@ -3,17 +3,15 @@
 namespace app\controllers;
 
 use app\models\DataPeminjaman;
-use app\models\Peminjaman;
-use app\models\PeminjamanSearch;
+use app\models\DataPeminjamanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-
 /**
- * PeminjamanController implements the CRUD actions for Peminjaman model.
+ * DataPeminjamanController implements the CRUD actions for DataPeminjaman model.
  */
-class PeminjamanController extends Controller
+class DataPeminjamanController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,12 +32,13 @@ class PeminjamanController extends Controller
     }
 
     /**
-     * Lists all Peminjaman models.
-     * @return mixed
+     * Lists all DataPeminjaman models.
+     *
+     * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PeminjamanSearch();
+        $searchModel = new DataPeminjamanSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,9 +48,9 @@ class PeminjamanController extends Controller
     }
 
     /**
-     * Displays a single Peminjaman model.
+     * Displays a single DataPeminjaman model.
      * @param int $id ID
-     * @return mixed
+     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
@@ -62,22 +61,18 @@ class PeminjamanController extends Controller
     }
 
     /**
-     * Creates a new Peminjaman model.
+     * Creates a new DataPeminjaman model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Peminjaman();
-        $modelsDataPeminjaman = [new DataPeminjaman];
-        // 'modelsDataPeminjaman' => (empty($modelsDataPeminjaman)) ? [new DataPeminjaman] : $modelsDataPeminjaman;
-
-        
+        $model = new DataPeminjaman();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post())){
+            if ($model->load($this->request->post())) {
                 $model->tanggal_peminjaman = date("Y/m/d");
-                
+
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -87,15 +82,14 @@ class PeminjamanController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelsDataPeminjaman' => (empty($modelsDataPeminjaman)) ? [new DataPeminjaman] : $modelsDataPeminjaman
         ]);
     }
 
     /**
-     * Updates an existing Peminjaman model.
+     * Updates an existing DataPeminjaman model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return mixed
+     * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
@@ -112,10 +106,10 @@ class PeminjamanController extends Controller
     }
 
     /**
-     * Deletes an existing Peminjaman model.
+     * Deletes an existing DataPeminjaman model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return mixed
+     * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
@@ -126,15 +120,15 @@ class PeminjamanController extends Controller
     }
 
     /**
-     * Finds the Peminjaman model based on its primary key value.
+     * Finds the DataPeminjaman model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Peminjaman the loaded model
+     * @return DataPeminjaman the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Peminjaman::findOne($id)) !== null) {
+        if (($model = DataPeminjaman::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Buku;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -14,6 +15,9 @@ use kartik\depdrop\DepDrop;
 use kartik\select2\Select2;
 use yii\helpers\Url;
 use kartik\mpdf\Pdf;
+use PhpOffice\PhpSpreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+ 
 
 class SiteController extends Controller
 {
@@ -161,38 +165,41 @@ class SiteController extends Controller
                 }
         }
     }
+    
+    public function actionExportexcel()
+    
+        {
+        
+        $spreadsheet = new PhpSpreadsheet\Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        
+        //Menggunakan Model
+        
+        // $database =Buku::find()
+        // ->select('id','judul')
+        // ->all();
+        
+        //JIka menggunakan DAO , gunakan QueryAll()
+        
 
-    public function actionReport(){
-        $content = $this->renderPartial('_reportView');
-         
-            // setup kartik\mpdf\Pdf component
-            $pdf = new Pdf([
-                // set to use core fonts only
-                'mode' => Pdf::MODE_CORE, 
-                // A4 paper format
-                'format' => Pdf::FORMAT_A4, 
-                // portrait orientation
-                'orientation' => Pdf::ORIENT_PORTRAIT, 
-                // stream to browser inline
-                'destination' => Pdf::DEST_BROWSER, 
-                // your html content input
-                'content' => $content,  
-                // format content from your own css file if needed or use the
-                // enhanced bootstrap css built by Krajee for mPDF formatting 
-                'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
-                // any css to be embedded if required
-                'cssInline' => '.kv-heading-1{font-size:18px}', 
-                 // set mPDF properties on the fly
-                'options' => ['title' => 'Krajee Report Title'],
-                 // call mPDF methods on the fly
-                'methods' => [ 
-                    'SetHeader'=>['PDF Header'], 
-                    'SetFooter'=>['{PAGENO}'],
-                ]
-            ]);
-         
-            // return the pdf output as per the destination setting
-            return $pdf->render();
-    }
+        
+        $sql = "select id,judul from buku";
+        
+        $database = Yii::$app->db->createCommand($sql)->queryAll();
+        
+
+        
+        $database = \yii\helpers\ArrayHelper::toArray($database);
+        $worksheet->fromArray($database, null, 'A4');
+        
+        $writer = new Xlsx($spreadsheet);
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="download.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+        
+        }
+
 
 }

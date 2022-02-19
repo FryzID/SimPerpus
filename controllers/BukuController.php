@@ -171,8 +171,9 @@ class BukuController extends Controller
     /*
 	EXPORT WITH MPDF
 	*/
-    // public function actionExportPdf()
+    // public function actionExportPdf($id)
     // {
+    //     $model = Buku::findOne($id);
     //     $searchModel = new BukuSearch();
     //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
     //     $html = $this->renderPartial('data_buku',['dataProvider'=>$dataProvider]);

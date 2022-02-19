@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body" style="display: block;">
         <?= $this->render('_form', [
             'model' => $model,
+            'modelsDataPeminjaman' => $modelsDataPeminjaman
         ]) ?>
         </div>
     </div>
