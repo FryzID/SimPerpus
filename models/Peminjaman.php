@@ -11,7 +11,7 @@ use yii\db\Expression;
  * This is the model class for table "peminjaman".
  *
  * @property int $id
- * @property int $id_buku
+ * 
  * @property int $id_admin
  * @property string $tanggal_peminjaman
  *
@@ -35,10 +35,11 @@ class Peminjaman extends \yii\db\ActiveRecord
     {
         return [
             [['id_buku', 'id_admin',], 'required'],
-            [['id_buku', 'id_admin', 'id_rak'], 'integer'],
+            [['id_admin'], 'integer'],
+            [['id_buku'], 'string', 'max' => 255],
             [['tanggal_peminjaman'], 'safe'],
-            [['id_rak'], 'exist', 'skipOnError' => true, 'targetClass' => Buku::className(), 'targetAttribute' => ['id_rak' => 'id']],
-            [['id_buku'], 'exist', 'skipOnError' => true, 'targetClass' => Buku::className(), 'targetAttribute' => ['id_buku' => 'id']],
+            // [['id_rak'], 'exist', 'skipOnError' => true, 'targetClass' => Buku::className(), 'targetAttribute' => ['id_rak' => 'id']],
+            // [['id_buku'], 'exist', 'skipOnError' => true, 'targetClass' => Buku::className(), 'targetAttribute' => ['id_buku' => 'id']],
             [['id_admin'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_admin' => 'id']],
         ];
     }
@@ -50,7 +51,7 @@ class Peminjaman extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_rak' => 'Rak',
+            // 'id_rak' => 'Rak',
             'id_buku' => 'ID Buku',
             'id_admin' => 'ID Admin',
             'tanggal_peminjaman' => 'Tanggal Peminjaman',
@@ -77,8 +78,8 @@ class Peminjaman extends \yii\db\ActiveRecord
         return $this->hasOne(Buku::className(), ['id' => 'id_buku']);
     }
 
-    public function getRak()
-    {
-        return $this->hasOne(Rak::className(), ['id' => 'id_rak']);
-    }
+    // public function getRak()
+    // {
+    //     return $this->hasOne(Rak::className(), ['id' => 'id_rak']);
+    // }
 }

@@ -77,9 +77,13 @@ class PeminjamanController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())){
                 $model->tanggal_peminjaman = date("Y/m/d");
+
+                if ($model->id_buku)
+                {
+                    $model->id_buku = implode(",", $model->id_buku);
+                }
                 
                 $model->save();
-                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();

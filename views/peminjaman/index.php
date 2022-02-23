@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $gridColumns = [
                 'id',
-                'id_rak',
-                'rak.nama_rak',
+                // 'id_rak',
+                // 'rak.nama_rak',
                 'id_buku',
                 'id_admin',
                 'tanggal_peminjaman',
@@ -50,8 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\SerialColumn'],
 
                 'id',
-                'id_rak',
-                'rak.nama_rak',
+                // 'id_rak',
+                // 'rak.nama_rak',
                 'id_buku',
                 'id_admin',
                 'tanggal_peminjaman',
