@@ -5,6 +5,8 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use kartik\grid\GridView;
 use kartik\export\ExportMenu;
+use yii\bootstrap4\Modal;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BukuSearch */
@@ -43,7 +45,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     
+    <?php
+    // Modal::begin([
+    //     'id' => 'bukuModal',
+    // ]);
+    //     Pjax::begin(['pjax-modal', 'timeout'=>false,
+    //     'enablePushState'=>false,
+    //     'enableReplaceState'=>false,
+    // ]);
 
+    //     Pjax::end();
+    // Modal::end();
+    ?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -73,7 +86,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
 
-                ['class' => 'yii\grid\ActionColumn'],
+                ['class' => 'yii\grid\ActionColumn',
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            $icon='<span class="glyphonicon glyphonicon-eye-open"></span>';
+                                return Html::a($icon,$url,[
+                                    'data-toggle'=>"modal",
+                                    'data-target'=>"#bukuModal",
+                                ]);
+                        },
+                        'update' => function ($url, $model) {
+                            $icon='<span class="glyphonicon glyphonicon-pencil"></span>';
+                                return Html::a($icon,$url,[
+                                    'data-toggle'=>"modal",
+                                    'data-target'=>"#bukuModal",
+                                ]);
+                        },
+                    ]],
             ],
 
             

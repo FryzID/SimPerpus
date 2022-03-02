@@ -4,6 +4,7 @@
 
 use app\models\Buku;
 use app\models\Peminjaman;
+use app\models\Penerbit;
 use app\models\Rak;
 use yii\bootstrap4\Html;
 
@@ -15,7 +16,7 @@ $this->title = 'Perpustakaanku';
     <div class="jumbotron text-center bg-transparent">
         <h1 class="display-4">Perpustakaanku</h1>
         <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="small-box bg-info">
                 <div class="inner">
                     <p>Jumlah Peminjaman</p>
@@ -36,7 +37,7 @@ $this->title = 'Perpustakaanku';
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="small-box bg-warning">
                 <div class="inner">
                     <p>Jumlah Buku</p>
@@ -54,7 +55,7 @@ $this->title = 'Perpustakaanku';
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="small-box bg-danger">
                 <div class="inner">
                     <p>Jumlah Rak</p>
@@ -71,6 +72,24 @@ $this->title = 'Perpustakaanku';
                 <!-- <a href="./rak/index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
         </div>
+
+        <div class="col-md-3">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <p>Jumlah Penerbit</p>
+                    <?php 
+                    $jumlah_penerbit = Penerbit::find()
+                    ->indexBy('id')
+                    ->count();
+                    ?>
+                    <h3><?php echo "$jumlah_penerbit"?></h3>
+                </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+                <!-- <a href="./buku/index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+        </div>
     </div>
     </div>
 
@@ -78,14 +97,9 @@ $this->title = 'Perpustakaanku';
     <div class="card-body" style="display: block;">
 
             <div class="col-lg-12">
-                <h2>Heading</h2>
+                <h2>Export Data Ke Excel</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                <?= Html::a('Export Excel', ['exportexcel'], ['class'=>'btn btn-info']); ?>
             </div>
         </div>
 
