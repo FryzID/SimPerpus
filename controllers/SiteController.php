@@ -33,6 +33,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Html;
 
 
 class SiteController extends Controller
@@ -187,14 +188,15 @@ class SiteController extends Controller
         // var_dump('aaa');die;
         // Create new PHPExcel object
         $objPHPExcel = new PHPExcel();
+        
         $BukuSearch = new BukuSearch();
-        $PeminjamanSearch = new PeminjamanSearch();
         $RakSearch = new RakSearch();
         $PenerbitSearch = new PenerbitSearch();
+
         $RakDataProvider = $RakSearch->search(Yii::$app->request->queryParams);
         $PenerbitDataProvider = $PenerbitSearch->search(Yii::$app->request->queryParams);
         $BukuDataProvider = $BukuSearch->search(Yii::$app->request->queryParams);
-        $PeminjamanDataProvider = $PeminjamanSearch->search(Yii::$app->request->queryParams);
+      
 
         // $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
         
@@ -226,7 +228,7 @@ class SiteController extends Controller
         ->setCellValue('H2', 'ID_Rak');
 
         foreach($BukuDataProvider->getModels() as $Buku){
-            $activeSheetBuku->setCellValue('A'.$baseRow, $baseRow-3)
+            $activeSheetBuku->setCellValue('A'.$baseRow, $baseRow-2)
             ->setCellValue('B'.$baseRow, $Buku->id)
             ->setCellValue('C'.$baseRow, $Buku->judul)
             ->setCellValue('D'.$baseRow, $Buku->gambar_buku)
@@ -286,8 +288,8 @@ class SiteController extends Controller
         );
 
 //////////////////////////NEW  SHEET/////////////////////////////////////
-// $objPHPExcel->createSheet(1);
-$activeSheetRak = $objPHPExcel->createSheet(1)->setTitle('Rak');
+    // $objPHPExcel->createSheet(1);
+    $activeSheetRak = $objPHPExcel->createSheet(1)->setTitle('Rak');
 
         $activeSheetRak->getPageSetup()->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
         ->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_FOLIO);
@@ -301,7 +303,7 @@ $activeSheetRak = $objPHPExcel->createSheet(1)->setTitle('Rak');
         ->setCellValue('C2', 'Nama_Rak');
 
         foreach($RakDataProvider->getModels() as $Rak){
-            $activeSheetRak->setCellValue('A'.$baseRow, $baseRow-3)
+            $activeSheetRak->setCellValue('A'.$baseRow, $baseRow-2)
             ->setCellValue('B'.$baseRow, $Rak->id)
             ->setCellValue('C'.$baseRow, $Rak->nama_rak);
             $baseRow++;
@@ -360,26 +362,31 @@ $activeSheetRak = $objPHPExcel->createSheet(1)->setTitle('Rak');
 
 
 /////////////////////NEW SHEET///////////////////////////////
+
+        $PeminjamanSearch = new PeminjamanSearch();
         $activeSheetPeminjaman = $objPHPExcel->createSheet(2)->setTitle('Peminjaman');
 
         $activeSheetPeminjaman->getPageSetup()->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
         ->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_FOLIO);
 
+        // //Get values and format
+        // $start = $_GET['start'];
+        // var_dump($start);die;
+        // $end = $_GET['end'];
 
-        $autoFilter = $activeSheetPeminjaman->getAutoFilter();
-        $columnFilter = $autoFilter->getColumn('E');    
-        $columnFilter->setFilterType(
-            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER
-        );
-        $columnFilter->createRule()
-    ->setRule(
-        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-        '',
-        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
-    )
-    ->setRuleType(
-        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER
-    );
+        // $tanggal = PeminjamanSearch::find()
+        // ->where(['tanggal_peminjaman', "date>=$start", "date<=$end"])
+        // ->from('Peminjaman.tanggal_peminjaman')
+        // ->createCommand('SELECT * FROM ')
+        // ->Where(['between', 'date', $start, $end])        
+        // ->andWhere(['tanggal_peminjaman'=>$start, $end])
+        // ->all();
+
+        // $peminjamans = Peminjaman::find()->Where(['between', 'tanggal_peminjaman', $start, $end])->all();
+        // var_dump($Peminjaman);die;
+        $PeminjamanDataProvider = $PeminjamanSearch->search(Yii::$app->request->queryParams);
+        
+
 
         //Data
         $baseRow = 3;
@@ -392,14 +399,16 @@ $activeSheetRak = $objPHPExcel->createSheet(1)->setTitle('Rak');
         ->setCellValue('E2', 'Tanggal Peminjaman');
 
 
-        foreach($PeminjamanDataProvider->getModels() as $Peminjaman){
-            $activeSheetPeminjaman->setCellValue('A'.$baseRow, $baseRow-3)
-            ->setCellValue('B'.$baseRow, $Peminjaman->id)
-            ->setCellValue('C'.$baseRow, $Peminjaman->id_buku)
-            ->setCellValue('D'.$baseRow, $Peminjaman->id_admin)
-            ->setCellValue('E'.$baseRow, $Peminjaman->tanggal_peminjaman);            
+        foreach($PeminjamanDataProvider as $peminjaman){
+            $activeSheetPeminjaman->setCellValue('A'.$baseRow, $baseRow-2)
+            ->setCellValue('B'.$baseRow, $peminjaman->id)
+            ->setCellValue('C'.$baseRow, $peminjaman->id_buku)
+            ->setCellValue('D'.$baseRow, $peminjaman->id_admin)
+            ->setCellValue('E'.$baseRow, $peminjaman->tanggal_peminjaman);       
             $baseRow++;
         }
+        
+        // var_dump($tanggal);die;
 
         //Merging
         $activeSheetPeminjaman->mergeCells('A1:E1');
@@ -464,7 +473,7 @@ $activeSheetRak = $objPHPExcel->createSheet(1)->setTitle('Rak');
         ->setCellValue('D2', 'Nama Penerbit');
 
         foreach($PenerbitDataProvider->getModels() as $Penerbit){
-            $activeSheetPenerbit->setCellValue('A'.$baseRow, $baseRow-3)
+            $activeSheetPenerbit->setCellValue('A'.$baseRow, $baseRow-2)
             ->setCellValue('B'.$baseRow, $Penerbit->id)
             ->setCellValue('C'.$baseRow, $Penerbit->kode_penerbit)
             ->setCellValue('D'.$baseRow, $Penerbit->nama_penerbit);
@@ -537,6 +546,7 @@ $activeSheetRak = $objPHPExcel->createSheet(1)->setTitle('Rak');
         $objWriter->save('php://output');
         exit;
     }
+    
 
     // public function actionExport()
     // {

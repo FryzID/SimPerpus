@@ -75,6 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id_penerbit',
                 'tahun_terbit',
                 'rak.nama_rak',
+                'stock',
                 //'id_rak',
 
                 [
@@ -86,23 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
 
-                ['class' => 'yii\grid\ActionColumn',
-                    'buttons' => [
-                        'view' => function ($url, $model) {
-                            $icon='<span class="glyphonicon glyphonicon-eye-open"></span>';
-                                return Html::a($icon,$url,[
-                                    'data-toggle'=>"modal",
-                                    'data-target'=>"#bukuModal",
-                                ]);
-                        },
-                        'update' => function ($url, $model) {
-                            $icon='<span class="glyphonicon glyphonicon-pencil"></span>';
-                                return Html::a($icon,$url,[
-                                    'data-toggle'=>"modal",
-                                    'data-target'=>"#bukuModal",
-                                ]);
-                        },
-                    ]],
+                ['class' => 'yii\grid\ActionColumn'],
             ],
 
             

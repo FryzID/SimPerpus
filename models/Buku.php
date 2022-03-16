@@ -39,7 +39,7 @@ class Buku extends \yii\db\ActiveRecord
         return [
             [['judul', 'pengarang', 'id_penerbit', 'tahun_terbit', 'id_rak'], 'required'],
             [['tahun_terbit'], 'safe'],
-            [['id_rak'], 'integer'],
+            [['id_rak','quantity','stock'], 'integer'],
             [['gambar_buku'], 'file','skipOnEmpty' => true, 'extensions'=>'jpg, gif, png ,doc, txt, pdf ,docx ,rar ,zip ,xls ,xlsx ,rtf',],
             [['judul', 'pengarang', 'id_penerbit'], 'string', 'max' => 45],
             [['id_rak'], 'exist', 'skipOnError' => true, 'targetClass' => Rak::className(), 'targetAttribute' => ['id_rak' => 'id']],
@@ -58,6 +58,8 @@ class Buku extends \yii\db\ActiveRecord
             'id_penerbit' => 'Penerbit',
             'tahun_terbit' => 'Tahun Terbit',
             'id_rak' => 'Id Rak',
+            'quantity' => 'Stok Ditambahkan',
+            'stock' => 'Stok',
             'gambar_buku' => 'Gambar Buku',
         ];
     }

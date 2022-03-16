@@ -40,15 +40,19 @@ use kartik\widgets\FileInput;
     </div>
     
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
         <?= $form->field($model, 'id_penerbit')->dropDownList(
             arrayHelper::map(Penerbit::find()->all(),'id','nama_penerbit'),
             ['prompt'=>'Select Penerbit']
         ) ?>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-5">
             <?= $form->field($model, 'pengarang')->textInput(['maxlength' => true]) ?>
+        </div>
+
+        <div class="col-md-2">
+            <?= $form->field($model, 'quantity')->textInput(['maxlength' => true]) ?>
         </div>
 
     </div>

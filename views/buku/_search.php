@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tahun_terbit') ?>
 
+    <?= $form->field($model, 'quantity') ?>
+
     <?php // echo $form->field($model, 'id_rak') ?>
 
     <div class="form-group">

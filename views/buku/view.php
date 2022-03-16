@@ -34,6 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'pengarang',
             'id_penerbit',
             'tahun_terbit',
+            'stock',
+            'quantity',
             'id_rak',
 
             [

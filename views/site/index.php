@@ -6,7 +6,10 @@ use app\models\Buku;
 use app\models\Peminjaman;
 use app\models\Penerbit;
 use app\models\Rak;
+use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
+use kartik\date\DatePicker;
+use yii\helpers\Url;
 
 $this->title = 'Perpustakaanku';
 ?>
@@ -97,9 +100,49 @@ $this->title = 'Perpustakaanku';
     <div class="card-body" style="display: block;">
 
             <div class="col-lg-12">
+
+            
+          
                 <h2>Export Data Ke Excel</h2>
 
+            <!-- <div>  -->
+                <!-- <div> <input type="date" id="" name="start" $method='POST'> </div>
+
+                <div> <input type="date" id="" name="start" $method='POST'> </div> -->
+
+                <!-- <form id='' action='site/exportexcel' method='post'> -->
+
+                <!-- <?= Html::beginForm(Url::to(['site/exportexcel', '']), 'POST', ['enctype' => 'multipart/form-data']) ?>
+                
+                <?= Html::input('date','start',$start->tanggal_peminjaman, $options=['class'=>'form-control']) ?>
+
+                <?= Html::input('date','end', $options=['class'=>'form-control']) ?>
+                
+                <?= Html::endForm(); ?> -->
+
+           
+                <form action="<?= \yii\helpers\Url::to(["/site/exportexcel"]) ?>" method="GET">
+                 <div class="input-group">
+                 <div class="input-group-prepend">
+                    <span class="input-group-text">Export </span>
+                </div>
+                    <td class="pt-0 pl-0">
+                        <input type="date" name="start" id="" class="form-control">
+                    </td>
+                    <td class="pt-0 pl-0">
+                        <input type="date" name="end" id="" class="form-control">
+                    </td>
+                <div class="col">
+                    <td class="pt-0 pl-0">
+                        <input type="submit" name="btn btn-info" id="" class="form-control" placeholder="Start">
+                    </td>
+                </div>
+                </div>
+                </form>
+           
+
                 <?= Html::a('Export Excel', ['exportexcel'], ['class'=>'btn btn-info']); ?>
+                
             </div>
         </div>
 

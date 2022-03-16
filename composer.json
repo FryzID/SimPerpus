@@ -34,7 +34,8 @@
         "moonlandsoft/yii2-phpexcel": "*",
         "phpoffice/phpspreadsheet": "^1.22",
         "wbraganca/yii2-dynamicform": "*",
-        "yii2tech/spreadsheet": "^1.0"
+        "yii2tech/spreadsheet": "^1.0",
+        "kartik-v/yii2-widget-datepicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

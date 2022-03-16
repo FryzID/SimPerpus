@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::a('Create Peminjaman', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
 
-            <?php
+            <!-- <?php
             $gridColumns = [
                 'id',
                 // 'id_rak',
@@ -36,9 +36,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'columns' => $gridColumns
             ]);
-            ?>
+            ?> -->
 
-        </div>
+
+        <form action="<?= \yii\helpers\Url::to(["/peminjaman/export"]) ?>" method="GET">
+                 <div class="input-group">
+                 <div class="input-group-prepend">
+                    <span class="input-group-text">Awal dan Akhir Tanggal</span>
+                </div>
+                    <td class="pt-0 pl-0">
+                        <input type="date" name="start" id="" class="form-control">
+                    </td>
+                    <td class="pt-0 pl-0">
+                        <input type="date" name="end" id="" class="form-control">
+                    </td>
+                <div class="col">
+                    <td class="pt-0 pl-0">
+                        <input type="submit" name="btn btn-info" id="" class="form-control" placeholder="Start">
+                    </td>
+                </div>
+                </div>
+                </form>
+
+            </div>
 
              <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
              

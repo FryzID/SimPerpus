@@ -5,6 +5,9 @@ namespace app\controllers;
 use app\models\DataPeminjaman;
 use app\models\Peminjaman;
 use app\models\PeminjamanSearch;
+use PHPExcel;
+use PHPExcel_IOFactory;
+use PHPExcel_Style_Border;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -144,4 +147,132 @@ class PeminjamanController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionExport()
+    {
+        $objPHPExcel = new PHPExcel();
+
+        $PeminjamanSearch = new PeminjamanSearch();
+        $activeSheetPeminjaman = $objPHPExcel->createSheet(0)->setTitle('Peminjaman');
+
+        $activeSheetPeminjaman->getPageSetup()->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
+        ->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_FOLIO);
+
+        // //Get values and format
+        $start = $_GET['start'];
+        // var_dump($start);die;
+        $end = $_GET['end'];
+
+        // $peminjamans = Peminjaman::find()
+        // // ->where(['tanggal_peminjaman', "date>=$start", "date<=$end"])
+        // // ->from('Peminjaman.tanggal_peminjaman')
+        // // ->createCommand('SELECT * FROM ')
+        // ->Where(['between', 'tanggal_peminjaman', $start, $end])       
+        // // ->orWhere([]) 
+        // // ->andWhere(['tanggal_peminjaman'=>$start, $end])
+        // ->all();
+
+        // $peminjamans = Peminjaman::find()->Where(['between', 'tanggal_peminjaman', $start, $end])->all();
+
+        if (!empty($start)) {
+            $peminjamans = Peminjaman::find()->Where(['between', 'tanggal_peminjaman', $start, $end])->all();
+        } else {
+            $peminjamans = Peminjaman::find()->all();
+        }
+        // var_dump($Peminjaman);die;
+        // $PeminjamanDataProvider = $tanggal->search(Yii::$app->request->queryParams);
+        
+        // if ($start = NULL)
+        // {
+            
+        // }
+
+        //Data
+        $baseRow = 3;
+
+        $activeSheetPeminjaman ->setCellValue('A1', 'DATA PEMINJAMAN')
+        ->setCellValue('A2', 'No')
+        ->setCellValue('B2', 'ID')
+        ->setCellValue('C2', 'ID Buku')
+        ->setCellValue('D2', 'ID Admin')
+        ->setCellValue('E2', 'Tanggal Peminjaman');
+
+
+        foreach($peminjamans as $peminjaman){
+            $activeSheetPeminjaman->setCellValue('A'.$baseRow, $baseRow-2)
+            ->setCellValue('B'.$baseRow, $peminjaman->id)
+            ->setCellValue('C'.$baseRow, $peminjaman->id_buku)
+            ->setCellValue('D'.$baseRow, $peminjaman->id_admin)
+            ->setCellValue('E'.$baseRow, $peminjaman->tanggal_peminjaman);       
+            $baseRow++;
+        }
+        
+        // var_dump($tanggal);die;
+
+        //Merging
+        $activeSheetPeminjaman->mergeCells('A1:E1');
+
+        //Aligning
+        $activeSheetPeminjaman->getStyle('A1')->getAlignment()->setHorizontal('center');
+
+        //Stylig
+        $activeSheetPeminjaman->getStyle('A1')->applyFromArray(
+            array(
+                'font'=>array(
+                    'bold'=>true
+                ),
+                'borders'=>array(
+                    'allborders' => array(
+                        'style'=> PHPExcel_Style_Border::BORDER_THIN
+                        )
+                )
+            )
+        );
+
+        $activeSheetPeminjaman->getStyle('A2:E2')->applyFromArray(
+            array(
+                'font'=>array(
+                    'bold'=>true
+                ),
+                'borders'=>array(
+                    'allborders' => array(
+                        'style'=> PHPExcel_Style_Border::BORDER_THIN
+                    )
+                )
+            )
+        );
+
+
+        //Data Border
+        $activeSheetPeminjaman->getStyle('A3:E'.($baseRow-1))->applyFromArray(
+            array(
+                'borders'=>array(
+                    'outline' => array(
+                        'style'=> PHPExcel_Style_Border::BORDER_THIN
+                    ),
+                    'vertical'=>array(
+                        'style' =>PHPExcel_Style_Border::BORDER_THIN
+                    )
+                )                
+            )
+        );
+         // Redirect output to a client’s web browser (Excel2007)
+         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+         header('Content-Disposition: attachment;filename="_export.xlsx"');
+         header('Cache-Control: max-age=0');
+         // If you're serving to IE 9, then the following may be needed
+         header('Cache-Control: max-age=1');
+ 
+         // If you're serving to IE over SSL, then the following may be needed
+         header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+         header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+         header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+         header('Pragma: public'); // HTTP/1.0
+ 
+         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+         $objWriter->save('php://output');
+         exit;
+
+    }
+
 }

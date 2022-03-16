@@ -4,8 +4,13 @@ namespace app\controllers;
 
 use app\models\Buku;
 use app\models\BukuSearch;
+use app\models\Peminjaman;
+use app\models\PeminjamanSearch;
 use app\models\Rak;
 use Faker\Core\File;
+use PHPExcel;
+use PHPExcel_IOFactory;
+use PHPExcel_Style_Border;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -75,9 +80,10 @@ class BukuController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             
-
+            $model->stock = $model->quantity;
             $imageName = Yii::$app->security->generateRandomString(12);
             $gambar_buku = UploadedFile::getInstance($model, 'gambar_buku');
+            
             if($model->validate()){
                 $model->save();
                 if (!empty($gambar_buku)) {
@@ -107,14 +113,17 @@ class BukuController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldQuantity = $model->quantity;
+        
+        $model->stock += $model->quantity;
 
         if ($model->load(Yii::$app->request->post())) {
 
             $data = $this->findModel($id);
-            unlink(Yii::getAlias('@app/web/') . 'uploads/' . $data->gambar_buku);
-
+          
             $imageName = Yii::$app->security->generateRandomString(12);
             $gambar_buku = UploadedFile::getInstance($model, 'gambar_buku');
+            
             if($model->validate()){
                 $model->save();
                 if (!empty($gambar_buku)) {
@@ -122,12 +131,14 @@ class BukuController extends Controller
                     $model->gambar_buku = $imageName.'.'.$gambar_buku->extension;
                     $model->save();
                     // var_dump($gambar); die;
-                }
+                } else {
+                    unlink(Yii::getAlias('@app/web/') . 'uploads/' . $data->gambar_buku);
             }
  
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
+    }
         else {
         return $this->render('update', [
             'model' => $model,
@@ -168,6 +179,7 @@ class BukuController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    
     /*
 	EXPORT WITH MPDF
 	*/
