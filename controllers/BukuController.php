@@ -114,6 +114,7 @@ class BukuController extends Controller
     {
         $model = $this->findModel($id);
         $oldQuantity = $model->quantity;
+        $oldImage = $model->gambar_buku;
         
         $model->stock += $model->quantity;
 
@@ -123,21 +124,51 @@ class BukuController extends Controller
           
             $imageName = Yii::$app->security->generateRandomString(12);
             $gambar_buku = UploadedFile::getInstance($model, 'gambar_buku');
+            $path = Yii::getAlias('@app/web/') . 'uploads/' . $data->gambar_buku;
             
-            if($model->validate()){
+            // if (file_exists($oldImage)){
+           
+            // }
+           
+            // if (is_null($gambar_buku)) {
+            //     $model->save();
+            //     return $this->redirect(['view', 'id' => $model->id]);
+            // } else 
+
+            if (is_null($gambar_buku)) {
+                $model-> gambar_buku=$oldImage;
                 $model->save();
-                if (!empty($gambar_buku)) {
-                    $gambar_buku->saveAs(Yii::getAlias('@app/web/') . 'uploads/' . $imageName . '.' . $gambar_buku->extension);
-                    $model->gambar_buku = $imageName.'.'.$gambar_buku->extension;
-                    $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            } 
+
+             if($model->validate()){
+                if (!empty($gambar_buku)) { //checking Image If Exist
+                    // if (!empty($model->gambar_buku)) { //Checking DB If image Exist
+                        // if (file_exists($oldImage)){ 
+                            unlink(Yii::getAlias('@app/web/') . 'uploads/' . $oldImage . '.');
+                        // }
+                       
+                        $gambar_buku->saveAs(Yii::getAlias('@app/web/') . 'uploads/' . $imageName . '.' . $gambar_buku->extension);
+                        $model->gambar_buku = $imageName.'.'.$gambar_buku->extension;
+                        $model->save(); 
+                    // }
+                    
+                    // var_dump($gambar_buku);die;
                     // var_dump($gambar); die;
-                } else {
-                    unlink(Yii::getAlias('@app/web/') . 'uploads/' . $data->gambar_buku);
-            }
- 
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+                }
+                // $oldImage = $model->gambar_buku;
+                // if (file_exists($oldImage)) {
+                //     unlink($path.$oldImage);
+                // }
+               
+                
+                // else if (file_exists($oldImage)) {
+                    //     unlink(Yii::getAlias('@app/web/') . 'uploads/' . $data->gambar_buku);
+                    // }
+                    
+                    $model->save();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
     }
         else {
         return $this->render('update', [
